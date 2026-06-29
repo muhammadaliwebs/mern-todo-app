@@ -1,0 +1,266 @@
+/* Container */
+.task-list-container {
+  max-width: 800px;
+  margin: 50px auto;
+  padding: 30px;
+  border-radius: 20px;
+
+  background: linear-gradient(135deg, #243b55, #141e30);
+  color: white;
+
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.4);
+  backdrop-filter: blur(10px);
+
+  animation: fadeIn 0.8s ease-in-out;
+}
+
+/* Heading */
+.task-list-container h1 {
+  text-align: center;
+  margin-bottom: 30px;
+  font-size: 28px;
+  font-weight: bold;
+  letter-spacing: 2px;
+
+  background: linear-gradient(90deg, #ffffff, #ffd369, #ffffff);
+  background-size: 200% auto;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: shine 3s linear infinite;
+}
+
+/* Common list styles */
+ul {
+  list-style: none;       /* bullets remove */
+  padding: 0;             /* default padding remove */
+  margin: 0;              /* default margin remove */
+}
+
+/* Header row */
+.task-list {
+  display: grid;
+  grid-template-columns: 60px 80px 1fr 2fr 120px; /* 5 columns */
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 12px;
+  padding: 12px;
+  margin-bottom: 15px;
+  font-weight: bold;
+  color: #ffd369;
+}
+
+/* Data rows */
+.task-list-item {
+  display: grid;
+  grid-template-columns: 60px 80px 1fr 2fr 120px; /* same 5 columns */
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 10px;
+  padding: 12px;
+  margin-bottom: 10px;
+  transition: all 0.3s ease;
+}
+
+.task-list-item:hover {
+  background: rgba(255, 255, 255, 0.15);
+  transform: translateY(-3px);
+  box-shadow: 0 6px 15px rgba(255, 211, 105, 0.4);
+}
+
+/* Action column buttons wrapper */
+.action-buttons {
+  display: flex;
+  gap: 14px;              /* buttons ke beech proper gap */
+  justify-content: center; /* center align */
+  align-items: center;
+}
+
+/* Delete button */
+.delete {
+  padding: 8px 14px;
+  border: none;
+  border-radius: 8px;
+  background: linear-gradient(135deg, #ff4d4d, #b30000);
+  color: white;
+  font-weight: bold;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 6px 15px rgba(255, 77, 77, 0.6);
+}
+
+.delete:hover {
+  background: linear-gradient(135deg, #b30000, #ff4d4d);
+  transform: translateY(-3px) scale(1.05);
+  box-shadow: 0 8px 20px rgba(255, 77, 77, 0.8);
+}
+
+.delete:active {
+  transform: scale(0.95);
+  box-shadow: 0 4px 10px rgba(255, 77, 77, 0.5);
+}
+
+/* Update button (same size/feel as Delete) */
+.update {
+  padding: 8px 14px;
+  border: none;
+  border-radius: 8px;
+  background: linear-gradient(135deg, #00b09b, #96c93d); /* teal-green gradient */
+  color: white;
+  font-weight: bold;
+  cursor: pointer;
+  text-decoration: none !important;
+  transition: all 0.3s ease;
+  box-shadow: 0 6px 15px rgba(0, 176, 155, 0.6);
+}
+
+.update:hover {
+  background: linear-gradient(135deg, #96c93d, #00b09b);
+  transform: translateY(-3px) scale(1.05);
+  box-shadow: 0 8px 20px rgba(0, 176, 155, 0.8);
+}
+
+.update:active {
+  transform: scale(0.95);
+  box-shadow: 0 4px 10px rgba(0, 176, 155, 0.5);
+}
+.delete,
+.update {
+  padding: 8px 14px;
+  width: 100px;
+  text-align: center;
+  display: inline-block;
+  box-sizing: border-box;
+}
+
+/* Animations */
+@keyframes shine {
+  0% {
+    background-position: 200% center;
+  }
+  100% {
+    background-position: -200% center;
+  }
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+.delete-all {
+  background: linear-gradient(135deg, #ff4d4d, #b30000);
+  width: 170px;
+  margin-bottom: 10px;
+}
+
+/* ===================================== */
+/* RESPONSIVE: Tablet aur chote screens   */
+/* ===================================== */
+@media (max-width: 768px) {
+  .task-list-container {
+    margin: 20px 10px;
+    padding: 20px 15px;
+  }
+
+  .task-list-container h1 {
+    font-size: 22px;
+  }
+
+  /* Header row hide on mobile - cards mein labels khud dikhenge */
+  .task-list {
+    display: none;
+  }
+
+  /* Har task ek card ki tarah */
+  .task-list-item {
+    display: flex;
+    flex-direction: column;
+    grid-template-columns: none;
+    padding: 16px;
+    position: relative;
+    gap: 8px;
+  }
+
+  /* Checkbox top-right corner mein */
+  .task-list-item li:first-child {
+    position: absolute;
+    top: 14px;
+    right: 14px;
+  }
+
+  /* S.No badge */
+  .task-list-item li:nth-child(2) {
+    color: #ffd369;
+    font-weight: bold;
+    font-size: 13px;
+  }
+
+  /* Title - label add karte hain content se pehle */
+  .task-list-item li:nth-child(3) {
+    font-size: 17px;
+    font-weight: bold;
+    padding-right: 30px;
+  }
+  .task-list-item li:nth-child(3)::before {
+    content: "Title: ";
+    color: #ffd369;
+    font-weight: normal;
+    font-size: 12px;
+    display: block;
+  }
+
+  /* Description */
+  .task-list-item li:nth-child(4) {
+    font-size: 14px;
+    color: rgba(255, 255, 255, 0.85);
+    word-break: break-word;
+  }
+  .task-list-item li:nth-child(4)::before {
+    content: "Description: ";
+    color: #ffd369;
+    font-weight: bold;
+    font-size: 12px;
+    display: block;
+  }
+
+  /* Action buttons row */
+  .action-buttons {
+    justify-content: flex-start;
+    margin-top: 8px;
+    gap: 10px;
+  }
+
+  .delete,
+  .update {
+    width: auto;
+    flex: 1;
+    padding: 10px 12px;
+    font-size: 13px;
+  }
+
+  .delete-all {
+    width: 100%;
+  }
+}
+
+/* ===================================== */
+/* RESPONSIVE: Bohot chote phones         */
+/* ===================================== */
+@media (max-width: 400px) {
+  .task-list-container {
+    padding: 15px 10px;
+  }
+
+  .task-list-container h1 {
+    font-size: 19px;
+  }
+
+  .delete,
+  .update {
+    font-size: 12px;
+    padding: 9px 8px;
+  }
+}
