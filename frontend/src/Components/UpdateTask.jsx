@@ -3,6 +3,7 @@ import { useState } from "react";
 import "../Styles/Updatetask.css";
 import { useParams } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
+import Swal from "sweetalert2";
 
 function UpdateTask() {
   const [taskData, setTaskData] = useState();
@@ -15,7 +16,9 @@ function UpdateTask() {
   }, []);
 
   const getTask = async (id) => {
-    let task = await fetch(`http://localhost:3200/tasks/${id}`);
+    let task = await fetch(`http://localhost:3200/tasks/${id}`, {
+      credentials: "include",
+    });
     task = await task.json();
     if (task.success) {
       setTaskData(task.data);
@@ -28,13 +31,24 @@ function UpdateTask() {
       headers: {
         "Content-Type": "application/json",
       },
+      credentials: "include",
     });
     result = await result.json();
     if (result) {
-      alert("Task Updated Successfully");
+      await Swal.fire({
+        title: "Success!",
+        text: "Task updated successfully.",
+        icon: "success",
+        confirmButtonText: "OK",
+      });
       navigate("/");
     } else {
-      alert("Task Not Updated");
+      await Swal.fire({
+        title: "Error!",
+        text: "Failed to update task.",
+        icon: "error",
+        confirmButtonText: "OK",
+      });
     }
     console.log("function called", taskData);
   };

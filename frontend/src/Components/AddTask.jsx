@@ -2,6 +2,7 @@ import React from "react";
 import { useState } from "react";
 import "../Styles/Addtask.css";
 import { useNavigate } from "react-router-dom";
+import Swal from "sweetalert2";
 
 function AddTask() {
   const [taskData, setTaskData] = useState();
@@ -19,10 +20,20 @@ function AddTask() {
     });
     result = await result.json();
     if (result.success) {
-      alert("Task Added Successfully");
+      await Swal.fire({
+        title: "Success!",
+        text: "Task added successfully.",
+        icon: "success",
+        confirmButtonText: "OK",
+      });
       navigate("/");
     } else {
-      alert("Failed to add task");
+      await Swal.fire({
+        title: "Error!",
+        text: "Failed to add task.",
+        icon: "error",
+        confirmButtonText: "OK",
+      });
     }
   };
   return (

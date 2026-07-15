@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { useEffect } from "react";
 import "../Styles/Tasklist.css";
 import { Link } from "react-router-dom";
+import Swal from "sweetalert2";
 
 function List() {
   const [taskList, setTaskList] = useState([]);
@@ -22,19 +23,44 @@ function List() {
     }
   };
   const deleteTask = async (id) => {
-    let result = await fetch(`http://localhost:3200/delete-task/${id}`, {
+    const result = await Swal.fire({
+      title: "Are you sure?",
+      text: "You won't be able to recover this task!",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#ef4444",
+      cancelButtonColor: "#6b7280",
+      confirmButtonText: "Yes, Delete it!",
+    });
+
+    if (!result.isConfirmed) return;
+
+    let response = await fetch(`http://localhost:3200/delete-task/${id}`, {
       method: "DELETE",
       credentials: "include",
       headers: {
         "Content-Type": "application/json",
       },
     });
-    result = await result.json();
-    if (result.success) {
-      alert("Task Deleted Successfully");
+
+    response = await response.json();
+
+    if (response.success) {
+      await Swal.fire({
+        title: "Deleted!",
+        text: "Task deleted successfully.",
+        icon: "success",
+        confirmButtonText: "OK",
+      });
+
       fetchData();
     } else {
-      alert("Failed to delete task");
+      await Swal.fire({
+        title: "Error!",
+        text: "Failed to delete task.",
+        icon: "error",
+        confirmButtonText: "OK",
+      });
     }
   };
   const selectAll = (e) => {
@@ -57,7 +83,19 @@ function List() {
   console.log(selectedTasks);
 
   const deleteMultiple = async () => {
-    console.log(selectedTasks);
+    const confirm = await Swal.fire({
+      title: "Delete Selected Tasks?",
+      text: "You won't be able to recover these tasks!",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#ef4444",
+      cancelButtonColor: "#6b7280",
+      confirmButtonText: "Yes, Delete All!",
+      cancelButtonText: "Cancel",
+    });
+
+    if (!confirm.isConfirmed) return;
+
     let result = await fetch(`http://localhost:3200/delete-multiple/`, {
       method: "DELETE",
       body: JSON.stringify(selectedTasks),
@@ -66,12 +104,25 @@ function List() {
         "Content-Type": "application/json",
       },
     });
+
     result = await result.json();
+
     if (result.success) {
-      alert("Task Deleted Successfully");
+      await Swal.fire({
+        title: "Deleted!",
+        text: "Selected tasks deleted successfully.",
+        icon: "success",
+        confirmButtonText: "OK",
+      });
+
       fetchData();
     } else {
-      alert("Failed to delete tasks");
+      await Swal.fire({
+        title: "Error!",
+        text: "Failed to delete selected tasks.",
+        icon: "error",
+        confirmButtonText: "OK",
+      });
     }
   };
 

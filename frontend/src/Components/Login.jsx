@@ -3,6 +3,7 @@ import "../Styles/Addtask.css";
 import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 import { useEffect } from "react";
+import Swal from "sweetalert2";
 
 function Login() {
   const [userData, setUserData] = React.useState({
@@ -28,13 +29,23 @@ function Login() {
     });
     result = await result.json();
     if (result.success) {
-      alert("Login Successfull");
+      await Swal.fire({
+        title: "Success!",
+        text: "Logged in successfully.",
+        icon: "success",
+        confirmButtonText: "OK",
+      });
       document.cookie = "token=" + result.token;
       localStorage.setItem("login", userData.email);
       window.dispatchEvent(new Event("local-storage"));
       navigate("/");
     } else {
-      alert(result.message);
+      await Swal.fire({
+        title: "Error!",
+        text: "Invalid email or password.",
+        icon: "error",
+        confirmButtonText: "OK",
+      });
     }
   };
   return (

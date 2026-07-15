@@ -9,7 +9,7 @@ import dotenv from "dotenv";
 dotenv.config();
 
 const app = express();
-const PORT = 3200;
+const PORT = process.env.PORT || 3200;
 const JWT_SECRET = process.env.JWT_SECRET;
 
 app.use(express.json());
@@ -232,7 +232,7 @@ app.post("/login", async (req, res) => {
 });
 
 app.listen(PORT, () => {
-  console.log(`Server is running on http://localhost:${PORT}`);
+  console.log(`Server is running on port ${PORT}`);
 });
 // import express from "express";
 // import { collectionName, connection } from "./dbconfig.js";
