@@ -13,9 +13,12 @@ function List() {
     fetchData();
   }, []);
   const fetchData = async () => {
-    let list = await fetch("http://localhost:3200/tasks-list", {
-      credentials: "include",
-    });
+    let list = await fetch(
+      " https://mern-todo-app-production-eb00.up.railway.app/tasks-list",
+      {
+        credentials: "include",
+      },
+    );
     list = await list.json();
     console.log(list);
     if (list.success) {
@@ -35,13 +38,16 @@ function List() {
 
     if (!result.isConfirmed) return;
 
-    let response = await fetch(`http://localhost:3200/delete-task/${id}`, {
-      method: "DELETE",
-      credentials: "include",
-      headers: {
-        "Content-Type": "application/json",
+    let response = await fetch(
+      ` https://mern-todo-app-production-eb00.up.railway.app/delete-task/${id}`,
+      {
+        method: "DELETE",
+        credentials: "include",
+        headers: {
+          "Content-Type": "application/json",
+        },
       },
-    });
+    );
 
     response = await response.json();
 
@@ -96,14 +102,17 @@ function List() {
 
     if (!confirm.isConfirmed) return;
 
-    let result = await fetch(`http://localhost:3200/delete-multiple/`, {
-      method: "DELETE",
-      body: JSON.stringify(selectedTasks),
-      credentials: "include",
-      headers: {
-        "Content-Type": "application/json",
+    let result = await fetch(
+      `https://mern-todo-app-production-eb00.up.railway.app/delete-multiple/`,
+      {
+        method: "DELETE",
+        body: JSON.stringify(selectedTasks),
+        credentials: "include",
+        headers: {
+          "Content-Type": "application/json",
+        },
       },
-    });
+    );
 
     result = await result.json();
 

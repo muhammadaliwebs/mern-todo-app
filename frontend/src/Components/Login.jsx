@@ -20,13 +20,16 @@ function Login() {
   }, []);
 
   const handleLogin = async () => {
-    let result = await fetch("http://localhost:3200/login", {
-      method: "POST",
-      body: JSON.stringify(userData),
-      headers: {
-        "Content-Type": "application/json",
+    let result = await fetch(
+      "https://mern-todo-app-production-eb00.up.railway.app/login",
+      {
+        method: "POST",
+        body: JSON.stringify(userData),
+        headers: {
+          "Content-Type": "application/json",
+        },
       },
-    });
+    );
     result = await result.json();
     if (result.success) {
       await Swal.fire({

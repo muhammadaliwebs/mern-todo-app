@@ -10,14 +10,17 @@ function AddTask() {
   const handleAddTask = async () => {
     console.log(taskData);
 
-    let result = await fetch("http://localhost:3200/add-task", {
-      method: "POST",
-      body: JSON.stringify(taskData),
-      credentials: "include",
-      headers: {
-        "Content-Type": "application/json",
+    let result = await fetch(
+      "https://mern-todo-app-production-eb00.up.railway.app/add-task",
+      {
+        method: "POST",
+        body: JSON.stringify(taskData),
+        credentials: "include",
+        headers: {
+          "Content-Type": "application/json",
+        },
       },
-    });
+    );
     result = await result.json();
     if (result.success) {
       await Swal.fire({

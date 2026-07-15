@@ -16,23 +16,29 @@ function UpdateTask() {
   }, []);
 
   const getTask = async (id) => {
-    let task = await fetch(`http://localhost:3200/tasks/${id}`, {
-      credentials: "include",
-    });
+    let task = await fetch(
+      `https://mern-todo-app-production-eb00.up.railway.app/tasks/${id}`,
+      {
+        credentials: "include",
+      },
+    );
     task = await task.json();
     if (task.success) {
       setTaskData(task.data);
     }
   };
   const updateTask = async (id) => {
-    let result = await fetch(`http://localhost:3200/update-task`, {
-      method: "PUT",
-      body: JSON.stringify({ ...taskData, id }),
-      headers: {
-        "Content-Type": "application/json",
+    let result = await fetch(
+      `https://mern-todo-app-production-eb00.up.railway.app/update-task`,
+      {
+        method: "PUT",
+        body: JSON.stringify({ ...taskData, id }),
+        headers: {
+          "Content-Type": "application/json",
+        },
+        credentials: "include",
       },
-      credentials: "include",
-    });
+    );
     result = await result.json();
     if (result) {
       await Swal.fire({
