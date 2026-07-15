@@ -15,7 +15,7 @@ const JWT_SECRET = process.env.JWT_SECRET;
 app.use(express.json());
 app.use(
   cors({
-    origin: "http://localhost:5173",
+    origin: "https://mern-todo-app-me.netlify.app/",
     credentials: true,
   }),
 );
