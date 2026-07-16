@@ -180,7 +180,11 @@ app.post("/signup", async (req, res) => {
   if (result) {
     const tokenPayload = { email: userData.email, name: userData.name };
     jwt.sign(tokenPayload, JWT_SECRET, { expiresIn: "10d" }, (err, token) => {
-      res.cookie("token", token);
+      res.cookie("token", token, {
+        httpOnly: true,
+        secure: true,
+        sameSite: "none",
+      });
       res.send({
         message: "User added successfully",
         success: true,
@@ -216,7 +220,11 @@ app.post("/login", async (req, res) => {
   if (isMatch) {
     const tokenPayload = { email: result.email, name: result.name };
     jwt.sign(tokenPayload, JWT_SECRET, { expiresIn: "10d" }, (err, token) => {
-      res.cookie("token", token);
+      res.cookie("token", token, {
+        httpOnly: true,
+        secure: true,
+        sameSite: "none",
+      });
       res.send({
         message: "User logged in successfully",
         success: true,

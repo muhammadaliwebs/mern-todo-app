@@ -29,6 +29,7 @@ function Signup() {
         headers: {
           "Content-Type": "application/json",
         },
+        credentials: "include",
       },
     );
     result = await result.json();
@@ -39,7 +40,6 @@ function Signup() {
         icon: "success",
         confirmButtonText: "OK",
       });
-      document.cookie = "token=" + result.token;
       localStorage.setItem("login", userData.email);
       window.dispatchEvent(new Event("local-storage"));
       navigate("/");
